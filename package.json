@@ -1,0 +1,20 @@
+{
+  "name": "reddit-video-maker-bot",
+  "version": "3.3.0",
+  "description": "Reddit Video Maker Bot - Create videos from Reddit posts automatically",
+  "main": "main.py",
+  "dependencies": {
+    "googleapis": "^128.0.0", 
+    "twitter-api-v2": "^1.15.2",
+    "instagram-private-api": "^1.45.3",
+    "dotenv": "^16.4.1",
+    "ffmpeg-static": "^5.2.0"
+  },
+  "scripts": {
+    "start": "python main.py",
+    "dev": "python main.py --dev",
+    "compile": "python compile_videos.py"
+  },
+  "author": "",
+  "license": "GPL-3.0"
+}

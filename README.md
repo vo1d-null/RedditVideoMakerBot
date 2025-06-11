@@ -1,12 +1,12 @@
-#A Fork from https://github.com/elebumm/RedditVideoMakerBot 
+# A Fork from https://github.com/elebumm/RedditVideoMakerBot 
 
-# Works with firefox
+## Works with firefox
 
-# Fixed random voice error in GTTS
+## Fixed random voice error in GTTS
 
-# Added Basuc video compilation script for QOL
+## Added basic video compilation script for QOL
 
-# Updated requirements.txt to use correct version
+## Updated requirements.txt to use correct version
 
 -----------------------------------------------------------
 

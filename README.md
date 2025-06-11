@@ -1,3 +1,15 @@
+#A Fork from https://github.com/elebumm/RedditVideoMakerBot 
+
+# Works with firefox
+
+# Fixed random voice error in GTTS
+
+# Added Basuc video compilation script for QOL
+
+# Updated requirements.txt to use correct version
+
+-----------------------------------------------------------
+
 # Reddit Video Maker Bot 🎥
 
 All done WITHOUT video editing or asset compiling. Just pure ✨programming magic✨.

@@ -72,9 +72,8 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
     screenshot_num: int
     with sync_playwright() as p:
         print_substep("Launching Headless Browser...")
-
-        browser = p.chromium.launch(
-            headless=True
+        browser = p.firefox.launch(
+            headless=True,
         )  # headless=False will show the browser for debugging purposes
         # Device scale factor (or dsf for short) allows us to increase the resolution of the screenshots
         # When the dsf is 1, the width of the screenshot is 600 pixels
@@ -88,22 +87,20 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
             device_scale_factor=dsf,
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
         )
+
+        # Login to Reddit
+        print_substep("Logging in to Reddit...")
+        page = context.new_page()
+
         cookies = json.load(cookie_file)
         cookie_file.close()
 
         context.add_cookies(cookies)  # load preference cookies
 
-        # Login to Reddit
-        print_substep("Logging in to Reddit...")
-        page = context.new_page()
-        page.goto("https://www.reddit.com/login", timeout=0)
-        page.set_viewport_size(ViewportSize(width=1920, height=1080))
-        page.wait_for_load_state()
-
-        page.locator(f'input[name="username"]').fill(settings.config["reddit"]["creds"]["username"])
-        page.locator(f'input[name="password"]').fill(settings.config["reddit"]["creds"]["password"])
-        page.get_by_role("button", name="Log In").click()
-        page.wait_for_timeout(5000)
+        page.set_extra_http_headers({
+            "Accept-Language": "en-US,en;q=0.9",
+        #    "Upgrade-Insecure-Requests": "1"
+        })
 
         login_error_div = page.locator(".AnimatedForm__errorMessage").first
         if login_error_div.is_visible():
@@ -220,7 +217,7 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
                 if page.locator('[data-testid="content-gate"]').is_visible():
                     page.locator('[data-testid="content-gate"] button').click()
 
-                page.goto(f"https://new.reddit.com/{comment['comment_url']}")
+                page.goto(f"https://reddit.com/{comment['comment_url']}", wait_until='domcontentloaded', timeout=0)
 
                 if settings.config["reddit"]["thread"]["post_lang"]:
                     comment_tl = translators.translate_text(

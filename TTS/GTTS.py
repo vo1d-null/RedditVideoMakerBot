@@ -8,7 +8,7 @@ from utils import settings
 class GTTS:
     def __init__(self):
         self.max_chars = 5000
-        self.voices = ['en-US-Chirp-HD-D', 'en-US-Studio-O', 'en-US-Chirp-HD-O', 'en-US-Chirp-HD-F',]
+        self.voices = ['en-US-Studio-O', 'en-US-Chirp-HD-D', 'en-US-Studio-O', 'en-US-Chirp-HD-O', 'en-US-Chirp-HD-F',]
 
     def run(self, text, filepath, random_voice=None):
         tts = gTTS(
